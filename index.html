@@ -11,31 +11,728 @@
         href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@200;300;400;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="netflix2.css">
-
     <style>
-        @media (max-width:990px) {
-            .form-container button {
-                /* margin: 15px; */
-                font-size: 1.1rem;
-                position: absolute;
-                top: 100px;
-                width: 10pc;
-                margin-top: 30px;
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            font-family: "Poppins", sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Header Section */
+        .head {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+        }
+
+        .head .img1 {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .head .navbar {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            z-index: 10;
+        }
+
+        .head .navbar button {
+            background-color: red;
+            padding: 8px 20px;
+            border-radius: 7px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .head .navbar button:hover {
+            background-color: rgba(255, 32, 32, 0.76);
+        }
+
+        .logo {
+            width: 150px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            max-width: 900px;
+            z-index: 10;
+        }
+
+        .hero .hero-title,
+        .hero .hero-tit {
+            font-size: clamp(24px, 5vw, 49px);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero .hero-subtitle {
+            font-size: clamp(16px, 2.5vw, 20px);
+            font-weight: 600;
+            margin: 16px 0;
+        }
+
+        .hero-desc {
+            font-size: clamp(14px, 2vw, 18px);
+            margin-bottom: 20px;
+        }
+
+        /* Form Container */
+        .form-container {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 700px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .form-container input[type="email"] {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            padding: 15px 20px;
+            flex: 1;
+            min-width: 250px;
+            font-size: 16px;
+            color: white;
+        }
+
+        .form-container input[type="email"]:focus {
+            outline: 2px solid white;
+            border-color: transparent;
+        }
+
+        .form-container button {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .form-container button:hover {
+            background-color: #c11119;
+        }
+
+        .form-container svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Curved Line */
+        .default-ltr-iqcdef-cache-dulgtd {
+            position: relative;
+            height: 0.25rem;
+            z-index: 1;
+        }
+
+        .default-ltr-iqcdef-cache-1f97ztc:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin-top: -0.25rem;
+            background: linear-gradient(to right, 
+                rgba(33, 13, 22, 1) 16%, 
+                rgba(184, 40, 105, 1), 
+                rgba(229, 9, 20, 1), 
+                rgba(184, 40, 105, 1), 
+                rgba(33, 13, 22, 1) 84%);
+        }
+
+        /* Movie Slider Section */
+        .sliderbar {
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .slidewrapper {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .fleximgs {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 40px 20px 40px 80px;
+            scrollbar-width: none;
+            position: relative;
+        }
+
+        .fleximgs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .fleximgs h2 {
+            position: absolute;
+            left: 40px;
+            top: -10px;
+            font-size: clamp(20px, 3vw, 24px);
+            z-index: 5;
+        }
+
+        .card {
+            position: relative;
+            min-width: 160px;
+            transition: transform 0.3s ease;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .numbers {
+            position: absolute;
+            bottom: -20px;
+            left: -25px;
+            font-size: 80px;
+            font-weight: 900;
+            color: black;
+            -webkit-text-stroke: 2px #fff;
+            line-height: 1;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        /* Scroll Buttons */
+        .left-scroll,
+        .scroll-btn.right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 20px 10px;
+            cursor: pointer;
+            z-index: 20;
+            transition: background 0.3s;
+        }
+
+        .left-scroll {
+            left: 10px;
+        }
+
+        .scroll-btn.right {
+            right: 10px;
+        }
+
+        .left-scroll:hover,
+        .scroll-btn.right:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        /* Cards Grid Section */
+        h2 {
+            font-size: clamp(20px, 4vw, 32px);
+            margin: 40px 20px 20px;
+            padding-left: 20px;
+        }
+
+        .cards-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .cards {
+            background: linear-gradient(149deg, #192247 0%, #210e17 96.86%);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+            min-height: 250px;
+        }
+
+        .cards:hover {
+            transform: translateY(-8px);
+        }
+
+        .cards-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cards h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .cards p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .cards-icon {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            opacity: 0.8;
+        }
+
+        .cards-icon svg {
+            width: 56px;
+            height: 56px;
+        }
+
+        /* FAQ Section */
+        .faq-section2 {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .faq1 {
+            margin-bottom: 8px;
+        }
+
+        .faq1 details {
+            background: #2d2d2d;
+            width: 100%;
+        }
+
+        .faq1 summary {
+            padding: 20px 24px;
+            font-size: 18px;
+            font-weight: 400;
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            border-bottom: 1px solid #000;
+        }
+
+        .faq1 summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq1 summary::after {
+            content: '+';
+            position: absolute;
+            right: 24px;
+            font-size: 28px;
+            transition: transform 0.3s;
+        }
+
+        .faq1 details[open] summary::after {
+            content: '×';
+            font-size: 25px;
+        }
+
+        .faq1 p {
+            padding: 20px 24px;
+            font-size: 16px;
+            line-height: 1.5;
+            border-top: 1px solid #000;
+        }
+
+        /* Bottom Form Section */
+        .fomrs {
+            width: 100%;
+            padding: 40px 20px;
+            
+            position: relative;
+            left: 0 !important;
+            top: 40px !important;
+        }
+
+        .fomrs .form-container {
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Footer */
+        .footer-container {
+            background-color: #000;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-header {
+            margin-bottom: 30px;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .footer-header:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .colum ul {
+            list-style: none;
+        }
+
+        .colum ul li {
+            margin-bottom: 15px;
+        }
+
+        .colum ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .colum ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .dropdown {
+            margin: 30px 0;
+        }
+
+        .dropdown select {
+            background-color: #000;
+            color: white;
+            padding: 10px 30px 10px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .dropdown select:hover {
+            border-color: white;
+        }
+
+        .footer-container p {
+            font-size: 14px;
+            margin: 20px 0;
+            line-height: 1.5;
+            position: static !important;
+            top: auto !important;
+        }
+
+        .footer-container a {
+            color: #0071eb;
+            text-decoration: none;
+        }
+
+        .footer-container a:hover {
+            text-decoration: underline;
+        }
+
+        /* JavaScript for scroll buttons */
+        .left-scroll, .scroll-btn.right {
+            cursor: pointer;
+        }
+
+        /* Tablet Responsive (768px - 1023px) */
+        @media screen and (max-width: 1023px) {
+            .hero {
+                width: 80%;
+            }
+            
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .numbers {
+                font-size: 60px;
+                left: -15px;
+                bottom: -10px;
+            }
+            
+            .card {
+                min-width: 140px;
             }
         }
 
-        @media (max-width:990px) {
+        /* Mobile Responsive (up to 767px) */
+        @media screen and (max-width: 767px) {
+            .head {
+                height: 90vh;
+            }
+            
+            .head .navbar {
+                width: 95%;
+            }
+            
+            .logo {
+                width: 100px;
+            }
+            
+            .head .navbar button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+            
+            .hero {
+                width: 90%;
+            }
+            
+            .hero .hero-title,
+            .hero .hero-tit {
+                font-size: clamp(20px, 6vw, 32px);
+            }
+            
+            .hero .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .hero-desc {
+                font-size: 14px;
+            }
+            
+            .form-container {
+                flex-direction: column;
+                bottom: 25%;
+                gap: 12px;
+            }
+            
             .form-container input[type="email"] {
-                margin: 30px;
-                width: 16pc;
-                        margin-top: 64px;
-
+                width: 100%;
+                padding: 12px 16px;
+            }
+            
+            .form-container button {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+            
+            .fleximgs {
+                padding-left: 20px;
+                gap: 10px;
+            }
+            
+            .fleximgs h2 {
+                left: 20px;
+                font-size: 18px;
+            }
+            
+            .card {
+                min-width: 120px;
+            }
+            
+            .numbers {
+                font-size: 50px;
+                left: -10px;
+                bottom: -5px;
+                -webkit-text-stroke: 1px #fff;
+            }
+            
+            h2 {
+                font-size: 20px;
+                margin: 20px 10px;
+                padding-left: 10px;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+            
+            .cards {
+                min-height: 250px;
+                padding: 20px;
+            }
+            
+            .cards h3 {
+                font-size: 18px;
+            }
+            
+            .cards p {
+                font-size: 14px;
+            }
+            
+            .cards-icon svg {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .faq1 summary {
+                padding: 16px 20px;
+                font-size: 16px;
+            }
+            
+            .faq1 summary::after {
+                font-size: 20px;
+                right: 16px;
+            }
+            
+            .faq1 p {
+                padding: 16px 20px;
+                font-size: 14px;
+            }
+            
+            .fomrs {
+                padding: 20px 10px;
+            }
+            
+            .footer-container {
+                padding: 40px 20px;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .colum ul li {
+                margin-bottom: 12px;
+            }
+            
+            .colum ul li a {
+                font-size: 13px;
             }
         }
-        @media (max-width:1636) {
-            .form-container{
-                /* margin-top: 10px; */
+
+        /* Small Mobile (up to 480px) */
+        @media screen and (max-width: 480px) {
+            .hero {
+                width: 95%;
+            }
+            
+            .hero .hero-title,
+            .hero .hero-tit {
+                font-size: 20px;
+            }
+            
+            .hero .hero-subtitle {
+                font-size: 14px;
+                margin: 8px 0;
+            }
+            
+            .hero-desc {
+                font-size: 12px;
+            }
+            
+            .fleximgs {
+                padding: 30px 10px 30px 15px;
+            }
+            
+            .card {
+                min-width: 100px;
+            }
+            
+            .numbers {
+                font-size: 40px;
+                left: -8px;
+            }
+            
+            .left-scroll,
+            .scroll-btn.right {
+                padding: 15px 6px;
+                font-size: 1.5rem;
+            }
+            
+            .cards-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .faq1 summary {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+            
+            .faq1 summary::after {
+                font-size: 20px;
+            }
+            
+            .faq1 p {
+                padding: 12px 16px;
+                font-size: 13px;
+            }
+        }
+
+        /* Landscape Mode */
+        @media screen and (max-height: 600px) and (orientation: landscape) {
+            .head {
+                height: 120vh;
+            }
+            
+            .hero {
+                top: 40%;
+            }
+            
+            .form-container {
+                bottom: 5%;
             }
         }
     </style>
@@ -46,7 +743,7 @@
         <img class="img1"
             src="/assets of nelfix/PK-en-20251222-TRIFECTA-perspective_d6adf8df-b1db-45e3-b603-7c4853001899_large.jpg">
         <nav class="navbar">
-            <img class="logo" style="width:150px;" src="/assets of nelfix/netflix-3.svg" alt="">
+            <img class="logo" src="/assets of nelfix/netflix-3.svg" alt="">
             <button>Sign In</button>
         </nav>
         <div class="hero">
@@ -56,24 +753,20 @@
             <span class="hero-desc">Ready to watch? Enter your email to create or restart your membership.</span>
         </div>
 
-
-
         <form class="form-container">
             <input type="email" id="emailAddress" name="emailAddress" placeholder="Email address">
             <label for="emailAddress"></label>
             <button>Get started
-                <svg viewBox="0 0 24 24" width="24" height="24" data-icon="ChevronRightMedium" data-icon-id=":r4:"
-                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" role="img">
+                <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" role="img">
                     <path fill="currentColor" fill-rule="evenodd"
                         d="m15.586 12-7.293 7.293 1.414 1.414 8-8a1 1 0 0 0 0-1.414l-8-8-1.414 1.414z"
                         clip-rule="evenodd"></path>
                 </svg>
             </button>
         </form>
-
     </header>
 
-    <!-- curved lin (clone) -->
+    <!-- curved line (clone) -->
     <div class="default-ltr-iqcdef-cache-dulgtd">
         <div class="curve-container">
             <div class="default-ltr-iqcdef-cache-1f97ztc"></div>
@@ -81,12 +774,11 @@
         <div class="default-ltr-iqcdef-cache-jtcpfi"></div>
     </div>
 
-
     <!-- curve line closed -->
     <main>
         <div class="sliderbar">
             <div class="slidewrapper">
-                <button class="left-scroll" onclick="scrollslider(-1)">&#10094;</button>
+                <button class="left-scroll" onclick="scrollSlider(-1)">&#10094;</button>
                 <div class="fleximgs" id="movie-slider">
                     <h2>Trending Now</h2>
                     <div class="card">
@@ -96,62 +788,53 @@
                         <div class="numbers">1</div>
                     </div>
                     <div class="card">
-
                         <img style="border-radius: 20px;"
                             src="assets of nelfix/AAAABbiRdMTrAJVrZa_1vFJiDzWVDso7BGvQ3P1VZX83gR_xHPQLNl7RELRsAb4t3NT7iAZj0m48c80img-ou6WrM9rw1rNrZjsIniCKx_xsEKn3_EzEO6T1mQHqtc8RqTLFzKb4.webp"
                             alt="">
                         <div class="numbers">2</div>
                     </div>
                     <div class="card">
-
                         <img style="border-radius: 20px;"
                             src="assets of nelfix/AAAABe4sznLOg8Sdj3Hb41y3_ZElp3sPp85TisSBnNXCq5CTYkMQz5peV4SPE3RLzrqJu3Jo_oF9-EOuqzbk3aDJyzJj3372fJ9i_2JIbecvsTL3o8bPQDg7kZ8_pDNLvKhD4Aq0.webp"
                             alt="">
                         <div class="numbers">3</div>
                     </div>
                     <div class="card">
-
                         <img style="border-radius: 20px;"
                             src="assets of nelfix/AAAABeCCglLBrw6BajbQyAT0g08g88dk_z2qTbyI1Y9WfinR4rX-udHODVOR5e_XvOu4hpi1TzZs4NJnERhCyHkprPNWdMFfI4zBQtmF3xq6cMrVC_JoV4HU78XwY2lWKOp2qoNs.webp"
                             alt="">
                         <div class="numbers">4</div>
                     </div>
                     <div class="card">
-
                         <img style="border-radius: 20px;"
                             src="assets of nelfix/AAAABS1-2PXWzkjwgPditAojbfpVT3xfybwleWd5ZxLItIBvbRc9DqjcOB17otGJEWjNmdkdyyEOfqgU-W0fRrPxopHZWrwzQzWwD96ljYztKpxkPLf511UgkGlXitG6pSQOeoKX.webp"
                             alt="">
                         <div class="numbers">5</div>
                     </div>
                     <div class="card">
-
                         <img style="border-radius: 20px;"
                             src="assets of nelfix/AAAABTJf3e14TtZ2Z3216UaphDq5nf1SaFyC-0R59wDCSyGdNROqYPTHg8g8SU0kbcn61BMumEkghBN8r11S6_bhQvNJ4oQD4oECM-M.webp"
                             alt="">
                         <div class="numbers">6</div>
                     </div>
                     <div class="card">
-
                         <img style="border-radius: 20px;"
                             src="assets of nelfix/AAAABXkEYAJ3HkNVF6fUEMKnPf7aEl2G-N-4PUH0ckDltpVVIRn2bjj86nJexAQRGPyru-B1o0mw-X_YtBmMysSbbg7q0wSZqjQgJS7D4EYBaY7lhc3Kf4Rz6ST2zQVdIybAGWuL.webp"
                             alt="">
                         <div class="numbers">7</div>
                     </div>
-                    <button class="scroll-btn right" onclick="scrollSlider(1)">&#10095;</button>
                 </div>
+                <button class="scroll-btn right" onclick="scrollSlider(1)">&#10095;</button>
             </div>
         </div>
 
-
-        <!-- card1 -->
+        <!-- cards section -->
         <h2>More Reasons to Join</h2>
         <div class="cards-container">
-
             <div class="cards-grid">
                 <!-- Card 1 -->
                 <div class="cards">
                     <div class="cards-icon">
-                        <!-- Keep your TV icon SVG here -->
                         <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
                             <g id="television-core-small">
                                 <path id="Vector" fill-rule="evenodd" clip-rule="evenodd"
@@ -223,7 +906,6 @@
                                 </radialGradient>
                             </defs>
                         </svg>
-
                     </div>
                     <div class="cards-content">
                         <h3>Enjoy on your TV</h3>
@@ -234,7 +916,6 @@
                 <!-- Card 2 -->
                 <div class="cards">
                     <div class="cards-icon">
-                        <!-- Keep your download icon SVG here -->
                         <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
                             <g id="download-core-small">
                                 <path id="Vector"
@@ -311,7 +992,6 @@
                                 </radialGradient>
                             </defs>
                         </svg>
-
                     </div>
                     <div class="cards-content">
                         <h3>Download your shows to watch offline</h3>
@@ -322,7 +1002,6 @@
                 <!-- Card 3 -->
                 <div class="cards">
                     <div class="cards-icon">
-                        <!-- Keep your telescope icon SVG here -->
                         <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
                             <g id="telescope-core-small">
                                 <path id="Vector"
@@ -420,7 +1099,6 @@
                                 </linearGradient>
                             </defs>
                         </svg>
-
                     </div>
                     <div class="cards-content">
                         <h3>Watch everywhere</h3>
@@ -431,7 +1109,6 @@
                 <!-- Card 4 -->
                 <div class="cards">
                     <div class="cards-icon">
-                        <!-- Keep your profiles icon SVG here -->
                         <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
                             <g id="profiles-core-small">
                                 <path id="Vector"
@@ -561,90 +1238,57 @@
         <h2>Frequently Asked Questions</h2>
         <section class="faq-section2">
             <div class="faq1">
-
                 <details>
-                    <summary style="border-bottom: 2px solid #4c4c4c6b;">What is Netflix?</summary>
+                    <summary>What is Netflix?</summary>
                     <p>Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies,
-                        anime,
-                        documentaries, and more on thousands of internet-connected devices.
-
-                        You can watch as much as you want, whenever you want without a single commercial – all for one
-                        low
-                        monthly price. There's always something new to discover and new TV shows and movies are added
-                        every
-                        week!</p>
+                        anime, documentaries, and more on thousands of internet-connected devices. You can watch as much as you want, whenever you want without a single commercial – all for one low monthly price. There's always something new to discover and new TV shows and movies are added every week!</p>
                 </details>
             </div>
 
             <div class="faq1">
-
                 <details>
-                    <summary style="border-bottom: 2px solid #4c4c4c6b;">How much does Netflix cost?</summary>
-                    <p>Watch Netflix on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one
-                        fixed
-                        monthly fee. Plans range from Rs 250 to Rs 1,100/month.</p>
-                </details>
-            </div>
-            <div class="faq1">
-
-                <details>
-                    <summary style="border-bottom: 2px solid #4c4c4c6b;">Where can I watch?</summary>
-                    <p>Watch anywhere, anytime. Sign in with your Netflix account to watch instantly on the web at
-                        netflix.com from your personal computer or on any internet-connected device that offers the
-                        Netflix
-                        app, including smart TVs, smartphones, tablets, streaming media players and game consoles.
-
-                        You can also download your favorite shows with the iOS or Android app. Use downloads to watch
-                        while
-                        you're on the go and without an internet connection. Take Netflix with you anywhere.</p>
+                    <summary>How much does Netflix cost?</summary>
+                    <p>Watch Netflix on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one fixed monthly fee. Plans range from Rs 250 to Rs 1,100/month.</p>
                 </details>
             </div>
 
             <div class="faq1">
-
                 <details>
-                    <summary style="border-bottom: 2px solid #4c4c4c6b;">How do I cancel?</summary>
-                    <p>Netflix is flexible. You can easily cancel your account online in two clicks. There are no
-                        cancellation fees – start or stop your account anytime.</p>
+                    <summary>Where can I watch?</summary>
+                    <p>Watch anywhere, anytime. Sign in with your Netflix account to watch instantly on the web at netflix.com from your personal computer or on any internet-connected device that offers the Netflix app, including smart TVs, smartphones, tablets, streaming media players and game consoles. You can also download your favorite shows with the iOS or Android app. Use downloads to watch while you're on the go and without an internet connection. Take Netflix with you anywhere.</p>
                 </details>
             </div>
 
             <div class="faq1">
-
                 <details>
-                    <summary style="border-bottom: 2px solid #4c4c4c6b;">What can I watch on Netflix?</summary>
-                    <p>Netflix has an extensive library of feature films, documentaries, TV shows, anime, award-winning
-                        Netflix originals, and more. Watch as much as you want, anytime you want.</p>
+                    <summary>How do I cancel?</summary>
+                    <p>Netflix is flexible. You can easily cancel your account online in two clicks. There are no cancellation fees – start or stop your account anytime.</p>
                 </details>
             </div>
 
             <div class="faq1">
-
                 <details>
-                    <summary style="border-bottom: 2px solid #4c4c4c6b;">Is Netflix good for Kids?</summary>
-                    <p>The Netflix Kids experience is included in your membership to give parents control while kids
-                        enjoy
-                        family-friendly TV shows and movies in their own space.
+                    <summary>What can I watch on Netflix?</summary>
+                    <p>Netflix has an extensive library of feature films, documentaries, TV shows, anime, award-winning Netflix originals, and more. Watch as much as you want, anytime you want.</p>
+                </details>
+            </div>
 
-                        Kids profiles come with PIN-protected parental controls that let you restrict the maturity
-                        rating of
-                        content kids can watch and block specific titles you don’t want kids to see.</p>
+            <div class="faq1">
+                <details>
+                    <summary>Is Netflix good for Kids?</summary>
+                    <p>The Netflix Kids experience is included in your membership to give parents control while kids enjoy family-friendly TV shows and movies in their own space. Kids profiles come with PIN-protected parental controls that let you restrict the maturity rating of content kids can watch and block specific titles you don't want kids to see.</p>
                 </details>
             </div>
         </section>
 
-        <P style="position: absolute; left:25% ; margin-top: 25px; width: 100%; height: auto;">Ready to watch? Enter
-            your email to create or restart your membership.
-        </p>
+        <p style="text-align: center; margin: 30px 0; width: 100%;">Ready to watch? Enter your email to create or restart your membership.</p>
 
-        <div class="fomrs" style=" position: relative; left: 22%; top: 4pc;">
-
+        <div class="fomrs">
             <form class="form-container">
-                <input type="email" id="emailAddress" name="emailAddress" placeholder="Email address">
-                <label for="emailAddress"></label>
+                <input type="email" id="emailAddress2" name="emailAddress" placeholder="Email address">
+                <label for="emailAddress2"></label>
                 <button>Get started
-                    <svg viewBox="0 0 24 24" width="24" height="24" data-icon="ChevronRightMedium" data-icon-id=":r4:"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" role="img">
+                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" role="img">
                         <path fill="currentColor" fill-rule="evenodd"
                             d="m15.586 12-7.293 7.293 1.414 1.414 8-8a1 1 0 0 0 0-1.414l-8-8-1.414 1.414z"
                             clip-rule="evenodd"></path>
@@ -652,14 +1296,11 @@
                 </button>
             </form>
         </div>
-
     </main>
-
 
     <footer class="footer-container">
         <h4 class="footer-header">Questions? Contact us.</h4>
         <div class="footer-links">
-            <!-- colum-1 -->
             <div class="colum">
                 <ul>
                     <li><a href="#">FAQ</a></li>
@@ -670,7 +1311,6 @@
                 </ul>
             </div>
 
-            <!-- colum2 -->
             <div class="colum">
                 <ul>
                     <li><a href="#">Help Center</a></li>
@@ -681,7 +1321,6 @@
                 </ul>
             </div>
 
-            <!-- colum3 -->
             <div class="colum">
                 <ul>
                     <li><a href="#">Account</a></li>
@@ -693,28 +1332,24 @@
             </div>
         </div>
 
-
         <div class="dropdown">
-            <button class="noting">
-                <select name="languages" id="languages" style="color: white; background-color:black;
-                    padding-top: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-bottom: 5px;
-    border: 2px solid white;">
-                    <option value="English">English</option>
-                    <option value="Urdu">Urdu</option>
-                </select>
-            </button>
+            <select name="languages" id="languages">
+                <option value="English">English</option>
+                <option value="Urdu">Urdu</option>
+            </select>
         </div>
 
-
-        <p style="position: relative; top: 20px;">Netflix Pakistan</p>
-        <p style="position: relative; top: 40px;">This page is protected by Google reCAPTCHA to ensure you're not a bot.
-            <a href="*" style="color: rgb(52, 103, 241);">Learn more.</a></p>
+        <p>Netflix Pakistan</p>
+        <p>This page is protected by Google reCAPTCHA to ensure you're not a bot. <a href="#">Learn more.</a></p>
     </footer>
 
-
+    <script>
+        function scrollSlider(direction) {
+            const slider = document.getElementById('movie-slider');
+            const scrollAmount = 300; // Adjust scroll amount as needed
+            slider.scrollLeft += direction * scrollAmount;
+        }
+    </script>
 </body>
 
 </html>
